@@ -1,0 +1,19 @@
+#board table{
+    margin: auto;
+    padding: 0;
+}
+
+td, tr, img{
+    padding: 0;
+    margin: 0;
+
+}
+body{
+    background: #2A2A2A;
+}
+td{
+    padding: 0;
+    margin: 0;
+}
+
+
