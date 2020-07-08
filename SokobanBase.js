@@ -16,6 +16,7 @@ const Entities = {
     B = Movable block
     P = Player starting position
     G = Goal area for the blocks
+    GB = GoalBox
 */
 const tileMap01 = {
     width: 19,

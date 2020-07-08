@@ -1,9 +1,27 @@
 
 var board = document.getElementById("board");
+var goalList = [];
 
+function init() {
 
+    for (var i = 0; i<tileMap01.height; i++){
+        for (var j = 0; j<tileMap01.width;j++) {
+            if (tileMap01.mapGrid[i][j] == 'G'){
+                goalList.push({x:i,y:j});
+            }
+        }
+    }
+    draw();
+}
 
 function draw() {
+
+
+    for (var goal = 0;goal<goalList.length;goal++){
+        if (tileMap01.mapGrid[goalList[goal].x][goalList[goal].y] == ' '){
+            tileMap01.mapGrid[goalList[goal].x][goalList[goal].y] = 'G';
+        }
+    }
 
     var tableElement = document.createElement("table");
 
@@ -33,8 +51,15 @@ function draw() {
                 tdElement.appendChild(img);
             }
             else if(tileMap01.mapGrid[i][j] == ' '){
+
                 tdElement.classList.add(Tiles.Space);
                 img.src = "Empty.gif"
+                tdElement.appendChild(img);
+            }
+
+            else if(tileMap01.mapGrid[i][j] == 'GB'){
+                tdElement.classList.add(Entities.BlockDone);
+                img.src = "GoalBox.gif"
                 tdElement.appendChild(img);
             }
             else
@@ -46,6 +71,9 @@ function draw() {
     }
     board.innerHTML = "";
     board.appendChild(tableElement);
+    if (checkWin()){
+        alert("You won!!!!!!!");
+    }
 }
 
    document.addEventListener("keyup",event=>{
@@ -75,9 +103,20 @@ function moveUp() {
         setTile(' ',pos.x,pos.y);
         draw();
     }
-    else if (getTile(pos.x-1,pos.y) == 'B'){
+    else if (getTile(pos.x-1,pos.y) == 'G'){
+        setTile('P',pos.x-1,pos.y);
+        setTile(' ',pos.x,pos.y);
+        draw();
+    }
+    else if (getTile(pos.x-1,pos.y) == 'B'  ||getTile(pos.x-1,pos.y) == 'GB'){
         if (getTile(pos.x-2,pos.y) == ' '){
             setTile('B',pos.x-2,pos.y);
+            setTile('P',pos.x-1,pos.y);
+            setTile(' ',pos.x,pos.y);
+            draw();
+        }
+        else if (getTile(pos.x-2,pos.y) == 'G' ){
+            setTile('GB',pos.x-2,pos.y);
             setTile('P',pos.x-1,pos.y);
             setTile(' ',pos.x,pos.y);
             draw();
@@ -96,11 +135,22 @@ function moveDown() {
         setTile(' ',pos.x,pos.y);
         draw();
     }
-    else if (getTile(pos.x+1,pos.y) == 'B') {
+    else if (getTile(pos.x+1,pos.y) == 'G'){
+        setTile('P',pos.x+1,pos.y);
+        setTile(' ',pos.x,pos.y);
+        draw();
+    }
+    else if (getTile(pos.x+1,pos.y) == 'B'  ||getTile(pos.x+1,pos.y) == 'GB') {
         if (getTile(pos.x + 2, pos.y) == ' ') {
             setTile('B', pos.x + 2, pos.y);
             setTile('P', pos.x + 1, pos.y);
             setTile(' ', pos.x, pos.y);
+            draw();
+        }
+        else if (getTile(pos.x+2,pos.y) == 'G' ){
+            setTile('GB',pos.x+2,pos.y);
+            setTile('P',pos.x+1,pos.y);
+            setTile(' ',pos.x,pos.y);
             draw();
         }
 
@@ -115,9 +165,20 @@ function moveRight() {
         setTile(' ',pos.x,pos.y);
         draw();
     }
-    else if (getTile(pos.x,pos.y+1) == 'B'){
+    else if (getTile(pos.x,pos.y+1) == 'G'){
+        setTile('P',pos.x,pos.y+1);
+        setTile(' ',pos.x,pos.y);
+        draw();
+    }
+    else if (getTile(pos.x,pos.y+1) == 'B' ||getTile(pos.x,pos.y+1) == 'GB' ){
         if (getTile(pos.x,pos.y+2) == ' '){
             setTile('B',pos.x,pos.y+2);
+            setTile('P',pos.x,pos.y+1);
+            setTile(' ',pos.x,pos.y);
+            draw();
+        }
+        else if (getTile(pos.x,pos.y+2) == 'G' ){
+            setTile('GB',pos.x,pos.y+2);
             setTile('P',pos.x,pos.y+1);
             setTile(' ',pos.x,pos.y);
             draw();
@@ -133,9 +194,20 @@ function moveLeft() {
         setTile(' ',pos.x,pos.y);
         draw();
     }
-    else if (getTile(pos.x,pos.y-1) == 'B'){
+    else if (getTile(pos.x,pos.y-1) == 'G' ){
+        setTile('P',pos.x,pos.y-1);
+        setTile(' ',pos.x,pos.y);
+        draw();
+    }
+    else if (getTile(pos.x,pos.y-1) == 'B' ||getTile(pos.x,pos.y-1) == 'GB'){
         if (getTile(pos.x,pos.y-2) == ' ') {
             setTile('B',pos.x,pos.y-2);
+            setTile('P',pos.x,pos.y-1);
+            setTile(' ',pos.x,pos.y);
+            draw();
+        }
+        else if (getTile(pos.x,pos.y-2) == 'G' ){
+            setTile('GB',pos.x,pos.y-2);
             setTile('P',pos.x,pos.y-1);
             setTile(' ',pos.x,pos.y);
             draw();
@@ -162,6 +234,18 @@ function setTile(tile,x,y) {
     tileMap01.mapGrid[x][y] = tile;
 
 }
+function checkWin() {
+    for (var i = 0; i<tileMap01.height; i++){
+        for (var j = 0; j<tileMap01.width;j++) {
+            if (tileMap01.mapGrid[i][j] =='B' || tileMap01.mapGrid[i][j] =='G'){
+                return false;
+            }
+        }
+    }
+
+ return true;
+}
+
 
 
 
