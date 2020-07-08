@@ -32,34 +32,34 @@ function draw() {
             var img = document.createElement("img");
             if (tileMap01.mapGrid[i][j] == 'P'){
                 tdElement.classList.add(Entities.Character);
-                img.src = "Hero.gif"
+                img.src = "Pics/Hero.gif"
                 tdElement.appendChild(img);
             }
             else if(tileMap01.mapGrid[i][j] == 'W'){
                 tdElement.classList.add(Tiles.Wall);
-                img.src = "Wall.gif"
+                img.src = "Pics/Wall.gif"
                 tdElement.appendChild(img);
             }
             else if(tileMap01.mapGrid[i][j] == 'B'){
                 tdElement.classList.add(Entities.Block);
-                img.src = "Box.gif"
+                img.src = "Pics/Box.gif"
                 tdElement.appendChild(img);
             }
             else if(tileMap01.mapGrid[i][j] == 'G'){
                 tdElement.classList.add(Tiles.Goal);
-                img.src = "Goal.gif"
+                img.src = "Pics/Goal.gif"
                 tdElement.appendChild(img);
             }
             else if(tileMap01.mapGrid[i][j] == ' '){
 
                 tdElement.classList.add(Tiles.Space);
-                img.src = "Empty.gif"
+                img.src = "Pics/Empty.gif"
                 tdElement.appendChild(img);
             }
 
             else if(tileMap01.mapGrid[i][j] == 'GB'){
                 tdElement.classList.add(Entities.BlockDone);
-                img.src = "GoalBox.gif"
+                img.src = "Pics/GoalBox.gif"
                 tdElement.appendChild(img);
             }
             else
@@ -76,7 +76,7 @@ function draw() {
     }
 }
 
-   document.addEventListener("keyup",event=>{
+   document.addEventListener("keydown",event=>{
        if (event.isComposing || event.keyCode === 37){
            moveLeft();
        }
