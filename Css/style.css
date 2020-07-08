@@ -15,5 +15,10 @@ td, tr{
 body{
     background: #2A2A2A;
 }
-
+#counter {
+    margin: auto;
+    padding-left: 800px;
+    padding-top: 40px;
+    color: white;
+}
 
