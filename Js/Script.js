@@ -86,15 +86,19 @@ function draw() {
 
    document.addEventListener("keydown",event=>{
        if (event.isComposing || event.keyCode === 37){
+           event.preventDefault();
            moveLeft();
        }
        else if (event.isComposing || event.keyCode === 38){
+           event.preventDefault();
           moveUp();
       }
        else if (event.isComposing || event.keyCode === 39){
+           event.preventDefault();
            moveRight();
        }
       else if (event.isComposing || event.keyCode === 40){
+           event.preventDefault();
           moveDown();
       }
    });
