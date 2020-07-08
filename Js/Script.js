@@ -22,7 +22,7 @@ function init() {
 
 function draw() {
     counter.innerHTML = count+" Moves";
-    count++;
+
 
     for (var goal = 0;goal<goalList.length;goal++){
         if (tileMap01.mapGrid[goalList[goal].x][goalList[goal].y] == ' '){
@@ -81,6 +81,7 @@ function draw() {
     if (checkWin()){
         alert("You won with only "+count +" moves!!!!!!!");
     }
+    count++;
 }
 
    document.addEventListener("keydown",event=>{
